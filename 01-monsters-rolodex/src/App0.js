@@ -23,18 +23,6 @@ function App() {
 
   return (
     <div className="App">
-      <CardList monsters={monsters} />
-    </div>
-  );
-}
-
-export default App;
-
-
-/*
-  //This is not proper design. Because CardList should be responsible of creating the content (monsters)
-  return (
-    <div className="App">
       <CardList name="*** Justin! as a normal props ***">
         {monsters.map((monster) => (
           <h1 key={monster.id}>{monster.name}</h1>
@@ -42,4 +30,6 @@ export default App;
       </CardList>
     </div>
   );
-*/
+}
+
+export default App;
