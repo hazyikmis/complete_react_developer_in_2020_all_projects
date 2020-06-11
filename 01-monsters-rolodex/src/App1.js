@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { CardList } from "./components/card-list/card-list.component";
-import { SearchBox } from "./components/search-box/search-box.component";
 
 function App() {
   // const initialMonsters = [
@@ -47,7 +46,11 @@ function App() {
 
   return (
     <div className="App">
-      <SearchBox placeholder="search monsters" handleChange={handleChange} />
+      <input
+        type="search"
+        placeholder="search monsters"
+        onChange={handleChange}
+      />
       <CardList monsters={filteredMonsters} />
     </div>
   );
