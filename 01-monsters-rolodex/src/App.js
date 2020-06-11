@@ -47,6 +47,7 @@ function App() {
 
   return (
     <div className="App">
+      <h1>Monster Rolodex</h1>
       <SearchBox placeholder="search monsters" handleChange={handleChange} />
       <CardList monsters={filteredMonsters} />
     </div>
