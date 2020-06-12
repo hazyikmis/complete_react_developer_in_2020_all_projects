@@ -2,7 +2,7 @@ import React from "react";
 
 import "./card.styles.css";
 
-export const Card = ({ monster }) => {
+export const Card = React.memo(({ monster }) => {
   return (
     <div className="card-container">
       <img
@@ -13,4 +13,4 @@ export const Card = ({ monster }) => {
       <p>{monster.email}</p>
     </div>
   );
-};
+});
