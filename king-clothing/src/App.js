@@ -2,15 +2,16 @@ import React from "react";
 import "./App.css";
 import HomePage from "./pages/homepage/homepage.component";
 import { Switch, Route } from "react-router-dom";
+import {ShopPage} from "./pages/shop/shop.component";
 
-const HatsPage = (props) => {
-  //console.log(props);
-  return (
-    <div>
-      <p>HATS PAGE</p>
-    </div>
-  );
-};
+// const HatsPage = (props) => {
+//   //console.log(props);
+//   return (
+//     <div>
+//       <p>HATS PAGE</p>
+//     </div>
+//   );
+// };
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
         <Route exact path="/" component={HomePage} />
         {/* <Route exact path="/hats" render={() => <HatsPage />} /> */}
         {/* <Route exact path="/hats" render={(routeProps) => <HatsPage {...routeProps}/>} /> */}
-        <Route path="/shop/hats" component={HatsPage} />
+        {/* <Route path="/shop/hats" component={HatsPage} /> */}
+        <Route path="/shop" component={ShopPage} />
       </Switch>
     </div>
   );
