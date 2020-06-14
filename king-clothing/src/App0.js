@@ -20,10 +20,8 @@ import { auth } from "./firebase/firebase.utils";
 function authStateChange(callback) {
   return auth.onAuthStateChanged((user) => {
     if (user) {
-      //console.log(user)
       callback(user);
     } else {
-      //console.log("NULL")
       callback(null);
     }
   });
