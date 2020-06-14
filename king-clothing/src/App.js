@@ -6,7 +6,7 @@ import { ShopPage } from "./pages/shop/shop.component";
 import Header from "./components/header-component/header.component";
 import SignInAndSignUp from "./pages/signin-and-signup/signin-and-signup.component";
 
-import { auth } from "./firebase/firebase.utils";
+import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
 // const HatsPage = (props) => {
 //   //console.log(props);
@@ -18,10 +18,11 @@ import { auth } from "./firebase/firebase.utils";
 // };
 
 function authStateChange(callback) {
-  return auth.onAuthStateChanged((user) => {
+  return auth.onAuthStateChanged(async (user) => {
     if (user) {
       //console.log(user)
-      callback(user);
+      //callback(user);
+      createUserProfileDocument(user);
     } else {
       //console.log("NULL")
       callback(null);
