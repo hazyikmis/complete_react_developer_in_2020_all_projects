@@ -8,6 +8,9 @@ import SignInAndSignUp from "./pages/signin-and-signup/signin-and-signup.compone
 
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
+import { connect } from "react-redux";
+import { setCurrentUser } from "./redux/user/user.actions";
+
 // const HatsPage = (props) => {
 //   //console.log(props);
 //   return (
@@ -25,8 +28,10 @@ componentWillUnmount lifecycle method should we use to call that unsubscribe met
 [THIS EXPLANATION FOR CLASS COMPONENTS!!!]
 */
 
-function App() {
-  const [currentUser, setCurrentUser] = useState(null);
+//function App() {
+function App(props) {
+  //after instantiating redux, no need to keep state here
+  //const [currentUser, setCurrentUser] = useState(null);
 
   // useEffect(() => {
   //   auth.onAuthStateChanged((user) => {
@@ -58,19 +63,24 @@ function App() {
   }
 
   useEffect(() => {
-    const unsubscribe = authStateChange(setCurrentUser);
+    //const unsubscribe = authStateChange(setCurrentUser);  //setCurrentUser was a setState function when useState hook was used
+    //to use "props" we have changed App declaration, added "props" as parameter
+    //const {setCurrentUser} = props;
+    const unsubscribe = authStateChange(props.setCurrentUser); //setCurrentUser now is a user action (because of redux)
     return () => {
       unsubscribe();
     };
   }, []);
 
-  useEffect(() => {
-    console.log(currentUser);
-  }, [currentUser]);
+  // useEffect(() => {
+  //   console.log(currentUser);
+  // }, [currentUser]);
 
   return (
     <div>
-      <Header currentUser={currentUser} />
+      {/* <Header currentUser={currentUser} /> */}
+      {/* No need to pass currentUser as props, because redux initiated */}
+      <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
         {/* <Route exact path="/hats" render={() => <HatsPage />} /> */}
@@ -83,7 +93,11 @@ function App() {
   );
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+});
+
+export default connect(null, mapDispatchToProps)(App);
 
 //routeProps: history+location+match
 //<Route exact path="/" component={HomePage} /> --> PASS AUTOMATICALLY
