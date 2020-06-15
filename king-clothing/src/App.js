@@ -17,6 +17,14 @@ import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 //   );
 // };
 
+/*
+Whenever we call the onAuthStateChanged() or onSnapshot() methods from our auth  library 
+or referenceObject, we get back a function that lets us unsubscribe 
+from the listener we just instantiated. 
+componentWillUnmount lifecycle method should we use to call that unsubscribe method in?
+[THIS EXPLANATION FOR CLASS COMPONENTS!!!]
+*/
+
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
 
