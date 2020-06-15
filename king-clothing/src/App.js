@@ -17,19 +17,6 @@ import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 //   );
 // };
 
-function authStateChange(callback) {
-  return auth.onAuthStateChanged(async (user) => {
-    if (user) {
-      //console.log(user)
-      //callback(user);
-      createUserProfileDocument(user);
-    } else {
-      //console.log("NULL")
-      callback(null);
-    }
-  });
-}
-
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -40,12 +27,38 @@ function App() {
   //   });
   // }, []);
 
+  function authStateChange(callback) {
+    return auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        //console.log(user)
+        //callback(user);
+        const userRef = await createUserProfileDocument(userAuth);
+        userRef.onSnapshot((snapShot) => {
+          //console.log(snapShot.data()) //in order to retrieve data (email, displayName, createdAt etc...)
+          //but id is not in snapShot.data(), it's directly in snapShot object
+          //setCurrentUser({...}
+          callback({
+            id: snapShot.id,
+            ...snapShot.data(),
+          });
+        });
+      } else {
+        //console.log("NULL")
+        callback(null);
+      }
+    });
+  }
+
   useEffect(() => {
     const unsubscribe = authStateChange(setCurrentUser);
     return () => {
       unsubscribe();
     };
   }, []);
+
+  useEffect(() => {
+    console.log(currentUser);
+  }, [currentUser]);
 
   return (
     <div>
