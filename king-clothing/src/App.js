@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import HomePage from "./pages/homepage/homepage.component";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { ShopPage } from "./pages/shop/shop.component";
 import Header from "./components/header-component/header.component";
 import SignInAndSignUp from "./pages/signin-and-signup/signin-and-signup.component";
@@ -87,17 +87,24 @@ function App(props) {
         {/* <Route exact path="/hats" render={(routeProps) => <HatsPage {...routeProps}/>} /> */}
         {/* <Route path="/shop/hats" component={HatsPage} /> */}
         <Route path="/shop" component={ShopPage} />
-        <Route path="/signin" component={SignInAndSignUp} />
+        {/* <Route path="/signin" component={SignInAndSignUp} /> */}
+        <Route exact path="/signin" render={() => props.currentUser ? (<Redirect to="/" />) : (<SignInAndSignUp />)} />
       </Switch>
     </div>
   );
 }
 
+const mapStateToProps = ({user}) => ({
+  currentUser: user.currentUser
+})
+//now you can use props.currentUser from store
+
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
+//now you can call props.setCurrentUser
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 //routeProps: history+location+match
 //<Route exact path="/" component={HomePage} /> --> PASS AUTOMATICALLY
