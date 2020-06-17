@@ -14,6 +14,8 @@ import { setCurrentUser } from "./redux/user/user.actions";
 import {createStructuredSelector} from "reselect"; //in case in the future we would use many different selectors
 import {selectCurrentUser} from "./redux/user/user.selector";
 
+import CheckoutPage from "./pages/checkout/checkout.component";
+
 // const HatsPage = (props) => {
 //   //console.log(props);
 //   return (
@@ -90,6 +92,7 @@ function App(props) {
         {/* <Route exact path="/hats" render={(routeProps) => <HatsPage {...routeProps}/>} /> */}
         {/* <Route path="/shop/hats" component={HatsPage} /> */}
         <Route path="/shop" component={ShopPage} />
+        <Route exact path="/checkout" component={CheckoutPage} />
         {/* <Route path="/signin" component={SignInAndSignUp} /> */}
         <Route exact path="/signin" render={() => props.currentUser ? (<Redirect to="/" />) : (<SignInAndSignUp />)} />
       </Switch>

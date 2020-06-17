@@ -7,16 +7,21 @@ import { selectCartItems } from "../../redux/cart/cart.selector"; //for memoizat
 
 import { connect } from "react-redux";
 
-import {createStructuredSelector} from "reselect"; //in case in the future we would use many different selectors
+import { createStructuredSelector } from "reselect"; //in case in the future we would use many different selectors
 
-const CartDropDown = ({ cartItems }) => (
-  <div className="cart-dropdown">
+import { withRouter } from "react-router-dom"; //to access history from inside this component
+
+//const CartDropDown = ({ cartItems }) => (
+const CartDropDown = ({ cartItems, history }) => (
+    <div className="cart-dropdown">
     <div className="cart-items">
-      {cartItems.map((item) => (
-        <CartItem key={item.id} item={item} />
-      ))}
+      {cartItems.length ? (
+        cartItems.map((item) => <CartItem key={item.id} item={item} />)
+      ) : (
+        <span className="empty-message">Your cart is empty</span>
+      )}
     </div>
-    <CustomButton>Go To Checkout</CustomButton>
+    <CustomButton onClick={() => history.push("/checkout")}>Go To Checkout</CustomButton>
   </div>
 );
 
@@ -29,7 +34,7 @@ const CartDropDown = ({ cartItems }) => (
 //   cartItems,
 // });
 
-//this method (using a reselect selector: selectCartItems) prevents re-calculation and 
+//this method (using a reselect selector: selectCartItems) prevents re-calculation and
 //re-rendering of cart-dropdown component which is unrelated to the cart data
 //this is good for performance (means memoization)
 // const mapStateToProps = state => ({
@@ -41,4 +46,6 @@ const mapStateToProps = createStructuredSelector({
   cartItems: selectCartItems,
 });
 
-export default connect(mapStateToProps)(CartDropDown);
+export default withRouter(connect(mapStateToProps)(CartDropDown));
+//withRouter used for accessing routeProps (match, location, history)
+//now we can take history as props
