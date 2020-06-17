@@ -15,9 +15,8 @@ import { toggleCartHidden } from "../../redux/cart/cart.actions";
 
 //const CartDropDown = ({ cartItems }) => (
 //const CartDropDown = ({ cartItems, history }) => (
-//const CartDropDown = ({ cartItems, history, toggleCartHide }) => (
-const CartDropDown = ({ cartItems, history, dispatch }) => (
-    <div className="cart-dropdown">
+const CartDropDown = ({ cartItems, history, toggleCartHide }) => (
+  <div className="cart-dropdown">
     <div className="cart-items">
       {cartItems.length ? (
         cartItems.map((item) => <CartItem key={item.id} item={item} />)
@@ -28,8 +27,7 @@ const CartDropDown = ({ cartItems, history, dispatch }) => (
     <CustomButton
       onClick={() => {
         history.push("/checkout");
-        //toggleCartHide();
-        dispatch(toggleCartHidden());
+        toggleCartHide();
       }}
     >
       Go To Checkout
@@ -58,12 +56,11 @@ const mapStateToProps = createStructuredSelector({
   cartItems: selectCartItems,
 });
 
-// const mapDispatchToProps = (dispatch) => ({
-//   toggleCartHide: () => dispatch(toggleCartHidden()),
-// });
+const mapDispatchToProps = (dispatch) => ({
+  toggleCartHide: () => dispatch(toggleCartHidden()),
+});
 
-//export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CartDropDown));
-export default withRouter(connect(mapStateToProps)(CartDropDown));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CartDropDown));
 //withRouter used for accessing routeProps (match, location, history)
 //now we can take history as props
 
@@ -73,5 +70,5 @@ export default withRouter(connect(mapStateToProps)(CartDropDown));
 //and console.log(otherProps) , then you'll see the "dispatch" along with cartItems and history
 //So you can call directly actions by dispatch(toggleCartHidden()) for example.
 //Yo do not need to define mapDispatchToProps if you not planning to make some changes on actions
-//THE METHOD EXPLAINED ABOVE APPLIED TO THIS VERSION
-//FOR PREVIOUS/NORMAL METHOD PLEASE CHECK VERSION OF cart-dropdown.component0.jsx
+//THIS VERSION WORKS AS IS, BUT IN ORDER TO SHOW THE METHOD EXPLAINED ABOVE PLEASE CHECK 
+//OTHER VERSION OF cart-dropdown.component.jsx
