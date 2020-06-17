@@ -11,6 +11,9 @@ import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user.actions";
 
+import {createStructuredSelector} from "reselect"; //in case in the future we would use many different selectors
+import {selectCurrentUser} from "./redux/user/user.selector";
+
 // const HatsPage = (props) => {
 //   //console.log(props);
 //   return (
@@ -94,10 +97,14 @@ function App(props) {
   );
 }
 
-const mapStateToProps = ({user}) => ({
-  currentUser: user.currentUser
-})
+// const mapStateToProps = ({user}) => ({
+//   currentUser: user.currentUser
+// })
 //now you can use props.currentUser from store
+
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser
+})
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),

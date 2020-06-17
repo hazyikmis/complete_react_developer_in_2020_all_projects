@@ -7,6 +7,8 @@ import { selectCartItems } from "../../redux/cart/cart.selector"; //for memoizat
 
 import { connect } from "react-redux";
 
+import {createStructuredSelector} from "reselect"; //in case in the future we would use many different selectors
+
 const CartDropDown = ({ cartItems }) => (
   <div className="cart-dropdown">
     <div className="cart-items">
@@ -27,11 +29,16 @@ const CartDropDown = ({ cartItems }) => (
 //   cartItems,
 // });
 
-//this method (using a reselect selector: selectCartItems) prevents re-rendering of 
-//cart-dropdown component which is unrelated to the cart data
+//this method (using a reselect selector: selectCartItems) prevents re-calculation and 
+//re-rendering of cart-dropdown component which is unrelated to the cart data
 //this is good for performance (means memoization)
-const mapStateToProps = state => ({
-  cartItems: selectCartItems(state),
+// const mapStateToProps = state => ({
+//   cartItems: selectCartItems(state),
+// });
+
+//memoization one step further using createStructuredSelector
+const mapStateToProps = createStructuredSelector({
+  cartItems: selectCartItems,
 });
 
 export default connect(mapStateToProps)(CartDropDown);

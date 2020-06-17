@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { toggleCartHidden } from "../../redux/cart/cart.actions";
 import { selectCartItemsCount } from "../../redux/cart/cart.selector";
 
+import {createStructuredSelector} from "reselect"; //in case in the future we would use many different selectors
+
 const CartIcon = ({ toggleCartHide, itemCount }) => (
   <div className="cart-icon" onClick={toggleCartHide}>
     <ShoppingIcon className="shopping-icon" />
@@ -25,10 +27,13 @@ const CartIcon = ({ toggleCartHide, itemCount }) => (
 //this is the updated version of mapStateToProps after using "reselect" npm lib, to bring memoization capability in our app
 //by using this method, we never calculate how many items in the cart every time when user clicks the cart-icon
 //calculation done only in the first time
-const mapStateToProps = (state) => ({
-  itemCount: selectCartItemsCount(state)
-})
+// const mapStateToProps = (state) => ({
+//   itemCount: selectCartItemsCount(state)
+// })
 
+const mapStateToProps = createStructuredSelector({
+  itemCount: selectCartItemsCount
+})
 
 const mapDispatchToProps = (dispatch) => ({
   toggleCartHide: () => dispatch(toggleCartHidden()),
