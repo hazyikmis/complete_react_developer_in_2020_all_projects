@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import HomePage from "./pages/homepage/homepage.component";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { ShopPage } from "./pages/shop/shop.component";
+//import { ShopPage } from "./pages/shop/shop.component";
+import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header-component/header.component";
 import SignInAndSignUp from "./pages/signin-and-signup/signin-and-signup.component";
 

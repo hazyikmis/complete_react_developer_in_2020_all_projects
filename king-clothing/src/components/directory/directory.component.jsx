@@ -71,7 +71,7 @@ const Directory = ({sections}) => {
 
 //this is how to write down mapStateToProps without using reselect functionality
 // const mapStateToProps = (state) => ({
-//   sections: state.sections
+//   sections: state.directory.sections
 // })
 
 const mapStateToProps = createStructuredSelector({
