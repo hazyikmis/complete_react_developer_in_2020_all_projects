@@ -6,12 +6,20 @@ import React from "react";
 
 import CollectionOverview from "../../components/collections-overview/collections-overview.component";
 
-const ShopPage = ({collections}) => {
-  //const [collections, setCollections] = useState(SHOP_DATA);
+import { Route } from "react-router-dom";
+import CollectionPage from "../collection/collection.component";
 
+//const ShopPage = ({collections}) => {
+//const ShopPage = () => {
+//Since ShopPage routed from App.js with component={ShopPage}, match props can be accessible
+const ShopPage = ({ match }) => {
+  //const [collections, setCollections] = useState(SHOP_DATA);
+  //console.log(match); //path is "/shop"
   return (
     <div className="shop-page">
-      <CollectionOverview />
+      {/* <CollectionOverview /> */}
+      <Route exact path={`${match.path}`} component={CollectionOverview} />
+      <Route path={`${match.path}/:collectionId`} component={CollectionPage} />
     </div>
   );
 };
