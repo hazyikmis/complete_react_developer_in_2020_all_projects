@@ -1,29 +1,7 @@
-//VER.3
-//ShopPage is becoming a simple non-connected component now!
-//We will now have the child component (CollectionOverview) to be connected
-
-import React from "react";
-
-import CollectionOverview from "../../components/collections-overview/collections-overview.component";
-
-const ShopPage = ({collections}) => {
-  //const [collections, setCollections] = useState(SHOP_DATA);
-
-  return (
-    <div className="shop-page">
-      <CollectionOverview />
-    </div>
-  );
-};
-
-export default ShopPage;
-
 //shop data is stored in internal state, not in the redux store,
 //lets move it to redux store
 
 /*
-//VER.1
-
 import React, { useState } from "react";
 
 import SHOP_DATA from "../../shop.data";
@@ -41,9 +19,6 @@ export const ShopPage = () => {
   );
 };
 */
-
-/*
-//VER.2
 
 import React from "react";
 
@@ -77,4 +52,3 @@ const mapStateToProps = createStructuredSelector({
 })
 
 export default connect(mapStateToProps)(ShopPage);
-*/
