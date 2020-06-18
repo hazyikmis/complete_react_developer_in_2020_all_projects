@@ -25,6 +25,10 @@ const CollectionPreview = ({ title, items }) => {
   );
 };
 
+//IMPORTANT NOTE: We can use a selector her, and write down a mapStateToProps calling this selector...
+//And in this selector we can decide how many items to show up, not in here, in the selector!!!
+//Finally send into this component as "items". Not all items, just first 4 or more/less selected inside the shop.selector
+
 export default CollectionPreview;
 
 /*
