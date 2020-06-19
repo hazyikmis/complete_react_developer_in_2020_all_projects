@@ -1,7 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 
-import "./header.styles.scss";
+//import "./header.styles.scss";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 
 import { auth } from "../../firebase/firebase.utils";
@@ -15,6 +15,49 @@ import { createStructuredSelector } from "reselect";
 import { selectCartHidden } from "../../redux/cart/cart.selector";
 import { selectCurrentUser } from "../../redux/user/user.selector";
 
+//after creating the header.styles.jsx file and adding the code below , we do not need anymore: import "./header.styles.scss";"
+import {
+  HeaderContainer,
+  LogoContainer,
+  OptionsContainer,
+  //OptionDiv,
+  OptionLink,
+} from "./header.styles";
+
+const Header = ({ currentUser, hidden }) => {
+  //console.log(currentUser)
+  return (
+    <HeaderContainer>
+      <LogoContainer to="/">
+        <Logo className="logo" />
+      </LogoContainer>
+      <OptionsContainer>
+        <OptionLink to="/shop">
+          SHOP
+        </OptionLink>
+        <OptionLink to="/contact">
+          CONTACT
+        </OptionLink>
+        {currentUser ? (
+          // <OptionDiv onClick={() => auth.signOut()}>
+          //   SIGN OUT
+          // </OptionDiv>
+          <OptionLink as="div" onClick={() => auth.signOut()}>
+            SIGN OUT
+          </OptionLink>
+        ) : (
+          <OptionLink to="/signin">
+            SIGN IN
+          </OptionLink>
+        )}
+        <CartIcon />
+      </OptionsContainer>
+      {!hidden ? <CartDropDown /> : null}
+    </HeaderContainer>
+  );
+};
+
+/*
 const Header = ({ currentUser, hidden }) => {
   //console.log(currentUser)
   return (
@@ -44,6 +87,7 @@ const Header = ({ currentUser, hidden }) => {
     </div>
   );
 };
+*/
 
 //state is the top level rootReducer
 // const mapStateToProps = (state) => ({
